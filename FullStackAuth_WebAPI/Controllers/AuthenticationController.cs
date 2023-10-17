@@ -23,6 +23,8 @@ namespace FullStackAuth_WebAPI.Controllers
             _authManager = authManager;
         }
 
+        // ** COMPLETED ** //
+
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> RegisterUser([FromBody] UserForRegistrationDto userForRegistration)
@@ -50,6 +52,8 @@ namespace FullStackAuth_WebAPI.Controllers
             };
             return StatusCode(201, createdUser);
         }
+
+        // ** COMPLETED ** //
 
         [HttpPost("login")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
