@@ -7,6 +7,8 @@ namespace FullStackAuth_WebAPI.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Car> Cars { get; set; }
 
         public ApplicationDbContext(DbContextOptions options)

@@ -121,7 +121,7 @@ namespace FullStackAuth_WebAPI.Controllers
                     return Unauthorized();
                 }
 
-                // Set the car's owner ID  the authenticated user's ID we found earlier
+                // Set the car's owner ID to the authenticated user's ID we found earlier
                 data.OwnerId = userId;
 
                 // Add the car to the database and save changes
