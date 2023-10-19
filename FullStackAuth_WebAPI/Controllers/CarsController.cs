@@ -17,6 +17,8 @@ namespace FullStackAuth_WebAPI.Controllers
     [ApiController]
     public class CarsController : ControllerBase
     {
+        /// BE SURE TO COPY THESE NEXT 2 LINES 22-27 TO ADD TO THE TOP OF ANY NEW CONTROLLER
+      
         private readonly ApplicationDbContext _context;
 
         public CarsController(ApplicationDbContext context)

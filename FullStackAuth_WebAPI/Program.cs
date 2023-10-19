@@ -40,7 +40,7 @@ namespace FullStackAuth_WebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            
+
 
             app.UseHttpsRedirection();
             app.UseCors("CorsPolicy");

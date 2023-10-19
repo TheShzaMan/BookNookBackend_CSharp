@@ -1,10 +1,14 @@
 ﻿namespace FullStackAuth_WebAPI.DataTransferObjects
 {
-    public class ReviewWithUserDTO
-    {
-        public string UserName { get; set; }
+    public class ReviewWithUserDto
 
-        public string Review {  get; set; }
+    {      
+        public  UserForDisplayDto User { get; set; }
+
+        public double Rating { get; set; }
+
+        public string Text {  get; set; }
+
 
     }
 }
