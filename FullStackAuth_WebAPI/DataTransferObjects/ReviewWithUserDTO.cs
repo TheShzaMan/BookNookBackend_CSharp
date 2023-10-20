@@ -1,9 +1,11 @@
-﻿namespace FullStackAuth_WebAPI.DataTransferObjects
+﻿using FullStackAuth_WebAPI.Models;
+
+namespace FullStackAuth_WebAPI.DataTransferObjects
 {
     public class ReviewWithUserDto
 
     {      
-        public  UserForDisplayDto User { get; set; }
+        public  string UserName { get; set; }
 
         public double Rating { get; set; }
 

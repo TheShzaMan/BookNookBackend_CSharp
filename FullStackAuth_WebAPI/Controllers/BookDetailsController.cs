@@ -1,8 +1,9 @@
 ﻿using FullStackAuth_WebAPI.Data;
 using FullStackAuth_WebAPI.DataTransferObjects;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using FullStackAuth_WebAPI.Models;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -28,7 +29,7 @@ namespace FullStackAuth_WebAPI.Controllers
         //}
 
         // GET api/<BookDetails>/5
-        [HttpGet("{id}")]
+        [HttpGet("{bookId}"), Authorize]
         public IActionResult GetBookDetails(string bookId)
         {
             try
@@ -40,27 +41,32 @@ namespace FullStackAuth_WebAPI.Controllers
                     return Unauthorized();
                 }
 
-                var bookReviews = _context.Reviews.
-                   Where(r => r.BookId.Equals(bookId)).ToList();
+                var thisUser = _context.Users
+                    .Find(userId);
+                var userName = thisUser.UserName;
 
-                var avgRating = bookReviews.Average(b => b.Rating);
+                var bookReviews = _context.Reviews
+                    .Include(r => r.User)
+                    .Where(r => r.BookId == bookId);
                 var isFav = bookReviews.Any(b => b.UserId == userId);
-                var userName = _context.Users.Select(u => u.UserName).ToString();
-               
-                var bookDetail = bookReviews.
-                   Select(r => new BookDetailsDto
-                   {
-                       AvgRating = avgRating,
-                       isFavorite = isFav,
-                       Review = new ReviewWithUserDto
-                       {
-                           UserName = userName,
-                           Rating = r.Rating,
-                           Text = r.Text,
-                       }
-                   }).ToList();
+                var avgRating = bookReviews.Average(b => b.Rating);
 
-                return StatusCode(200, bookDetail);
+                var bookDto = bookReviews
+                    .Select(r => new BookDetailsDto
+                    {
+                        
+                        AvgRating = avgRating,
+                        isFavorite = isFav,
+                        //Reviews = reviewDto,
+                        Reviews = _context.Reviews
+                        .Select(r => new ReviewWithUserDto
+                        {
+                            UserName = userName,
+                            Rating = r.Rating,
+                            Text = r.Text,
+                        }).ToList()
+                    });
+                return StatusCode(200, bookDto);
             }
             catch (Exception ex)
             {

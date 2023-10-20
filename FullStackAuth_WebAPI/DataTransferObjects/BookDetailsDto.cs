@@ -11,6 +11,6 @@ namespace FullStackAuth_WebAPI.DataTransferObjects
 
         public bool isFavorite {  get; set;}
 
-        public ReviewWithUserDto Review { get; set; }
+        public List<ReviewWithUserDto> Reviews { get; set; }
     }
 }
