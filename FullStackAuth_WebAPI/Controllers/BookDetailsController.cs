@@ -29,43 +29,65 @@ namespace FullStackAuth_WebAPI.Controllers
         //}
 
         // GET api/<BookDetails>/5
-        [HttpGet("{bookId}"), Authorize]
+        [HttpGet("{bookId}")]
         public IActionResult GetBookDetails(string bookId)
         {
             try
             {
                 string userId = User.FindFirstValue("id");
+                bool isLoggedIn = false;
 
                 if (string.IsNullOrEmpty(userId))
                 {
-                    return Unauthorized();
+                  
                 }
-
-                var thisUser = _context.Users
-                    .Find(userId);
-                var userName = thisUser.UserName;
+                else
+                {
+                    isLoggedIn = true;
+                }
 
                 var bookReviews = _context.Reviews
                     .Include(r => r.User)
                     .Where(r => r.BookId == bookId);
-                var isFav = bookReviews.Any(b => b.UserId == userId);
                 var avgRating = bookReviews.Average(b => b.Rating);
 
-                var bookDto = bookReviews
-                    .Select(r => new BookDetailsDto
-                    {
-                        
-                        AvgRating = avgRating,
-                        isFavorite = isFav,
-                        //Reviews = reviewDto,
-                        Reviews = _context.Reviews
-                        .Select(r => new ReviewWithUserDto
+                //if (isLoggedIn) 
+                //{ 
+                     var thisUser = _context.Users
+                        .Find(userId);
+                    var userName = thisUser.UserName;
+                    var isFav = bookReviews.Any(b => b.UserId == userId);
+                    var bookDto = bookReviews
+                        .Select(r => new BookDetailsDto
                         {
-                            UserName = userName,
-                            Rating = r.Rating,
-                            Text = r.Text,
-                        }).ToList()
-                    });
+                            AvgRating = avgRating,
+                            isFavorite = isFav,
+                            Reviews = _context.Reviews
+                            .Select(r => new ReviewWithUserDto
+                            {
+                                UserName = r.User.UserName,
+                                Rating = r.Rating,
+                                Text = r.Text,
+                            }).ToList()
+                        });
+                   
+                //}
+                //else
+                //{
+                //    var bookDto = bookReviews
+                //        .Select(r => new BookDetailsDto
+                //        {
+                //            AvgRating = avgRating,
+                //            isFavorite = isFav,
+                //            Reviews = _context.Reviews
+                //            .Select(r => new ReviewWithUserDto
+                //            {
+                //                UserName = r.User.UserName,
+                //                Rating = r.Rating,
+                //                Text = r.Text,
+                //            }).ToList()
+                //        });
+                //}
                 return StatusCode(200, bookDto);
             }
             catch (Exception ex)

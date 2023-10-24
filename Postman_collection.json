@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "1ed2e123-f7f0-43ff-95b2-bdb676773246",
+		"_postman_id": "76d624af-fb8e-480f-bbec-09b1794af1ae",
 		"name": "ASP_NET_Starter",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "13455599"
+		"_exporter_id": "29744212"
 	},
 	"item": [
 		{
@@ -262,6 +262,216 @@
 							""
 						]
 					}
+				}
+			]
+		},
+		{
+			"name": "BookNook",
+			"item": [
+				{
+					"name": "Post review",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IkRhbm55RCIsImVtYWlsIjoiZGFubnlAZ21haWwuY29tIiwiaWQiOiJhNzFhOGNjNi05NTc0LTQ2NTAtYjBhNC04ZDZiMDNmNmYzZTIiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJVc2VyIiwiZXhwIjoxNjk3NzEwMjE0LCJpc3MiOiJGdWxsU3RhY2tBdXRoX1dlYkFQSSIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEifQ.o8RQVJ61zSKiLWzmN3cqfvQVOda9_EPy70Soau-CDxU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"BookId\" : \"LznfzAEACAAJ\",\r\n    \"Text\" : \"Nice!\",\r\n    \"Rating\" : \"4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/api/reviews",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Favorites",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImFiY2RlZmciLCJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJpZCI6IjBhMWJhYmZlLWMyNTktNDdkMy1hNTU4LTYxMjA0MTM4NTQ2MSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJleHAiOjE2OTc4MDAxODUsImlzcyI6IkZ1bGxTdGFja0F1dGhfV2ViQVBJIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSJ9.2cf7fs6ZV9wlRw-68mTS59f0elxvvcYvkxpHMvetVIA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/api/favorites/myFavorites",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"favorites",
+								"myFavorites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get BookDetails",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImFiY2RlZmciLCJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJpZCI6IjBhMWJhYmZlLWMyNTktNDdkMy1hNTU4LTYxMjA0MTM4NTQ2MSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJleHAiOjE2OTc4MTY3ODUsImlzcyI6IkZ1bGxTdGFja0F1dGhfV2ViQVBJIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSJ9.dg1ohf5sDGBYwkDa8kPl2Ne84W2Jxp_XqSOxnbI-9JU",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/api/BookDetails/l3tSzQEACAAJ",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"BookDetails",
+								"l3tSzQEACAAJ"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Favorite",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImFiY2RlZmciLCJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJpZCI6IjBhMWJhYmZlLWMyNTktNDdkMy1hNTU4LTYxMjA0MTM4NTQ2MSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJleHAiOjE2OTc4MDAxODUsImlzcyI6IkZ1bGxTdGFja0F1dGhfV2ViQVBJIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSJ9.2cf7fs6ZV9wlRw-68mTS59f0elxvvcYvkxpHMvetVIA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"BookId\" : \"l3tSzQEACAAJ\",\r\n    \"Title\" : \"The Two Towers\",\r\n    \"ThumbnailUrl\" : \"http://books.google.com/books/content?id=LznfzAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/api/favorites",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"favorites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search google books",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.googleapis.com/books/v1/volumes?q=mexico",
+							"protocol": "https",
+							"host": [
+								"www",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"books",
+								"v1",
+								"volumes"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "mexico"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get google bookdetails",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.googleapis.com/books/v1/volumes/l3tSzQEACAAJ",
+							"protocol": "https",
+							"host": [
+								"www",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"books",
+								"v1",
+								"volumes",
+								"l3tSzQEACAAJ"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
