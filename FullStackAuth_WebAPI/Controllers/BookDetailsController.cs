@@ -1,5 +1,6 @@
 ﻿using FullStackAuth_WebAPI.Data;
 using FullStackAuth_WebAPI.DataTransferObjects;
+using FullStackAuth_WebAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,41 +29,46 @@ namespace FullStackAuth_WebAPI.Controllers
         //    return new string[] { "value1", "value2" };
         //}
 
-        // GET api/<BookDetails>/5
-        [HttpGet("{bookId}")]
+        // GET api/BookDetails/5
+        [HttpGet("{bookId}"), Authorize]
         public IActionResult GetBookDetails(string bookId)
         {
             try
             {
                 string userId = User.FindFirstValue("id");
-                bool isLoggedIn = false;
-
+               
                 if (string.IsNullOrEmpty(userId))
                 {
-                  
-                }
-                else
-                {
-                    isLoggedIn = true;
+                    return Unauthorized();
                 }
 
                 var bookReviews = _context.Reviews
                     .Include(r => r.User)
-                    .Where(r => r.BookId == bookId);
-                var avgRating = bookReviews.Average(b => b.Rating);
-
-                //if (isLoggedIn) 
-                //{ 
-                     var thisUser = _context.Users
-                        .Find(userId);
-                    var userName = thisUser.UserName;
-                    var isFav = bookReviews.Any(b => b.UserId == userId);
+                    .Where(r => r.BookId == bookId)
+                    .ToList();
+                var isFav = _context.Favorites
+                    .Where(f => f.BookId == bookId)
+                    .Any(f => f.UserId == userId);
+                double avgRating = 0;
+                
+                if(bookReviews.Count() == 0)
+                {
+                    var bookDtoNone =
+                         new BookDetailsDto
+                         {
+                             isFavorite = isFav
+                         };
+                    return StatusCode(200, bookDtoNone);
+                }
+                else
+                {
+                    avgRating = bookReviews.Average(b => b.Rating);
                     var bookDto = bookReviews
                         .Select(r => new BookDetailsDto
                         {
                             AvgRating = avgRating,
                             isFavorite = isFav,
-                            Reviews = _context.Reviews
+                            Reviews = bookReviews
                             .Select(r => new ReviewWithUserDto
                             {
                                 UserName = r.User.UserName,
@@ -70,6 +76,15 @@ namespace FullStackAuth_WebAPI.Controllers
                                 Text = r.Text,
                             }).ToList()
                         });
+                    return StatusCode(200, bookDto);
+                }
+
+                //if (isLoggedIn) 
+                //{ 
+                //var thisUser = _context.Users
+                //    .Find(userId);
+                //var userName = thisUser.UserName;
+               // var isFav = bookReviews.Any(b => b.UserId == userId);
                    
                 //}
                 //else
@@ -88,7 +103,7 @@ namespace FullStackAuth_WebAPI.Controllers
                 //            }).ToList()
                 //        });
                 //}
-                return StatusCode(200, bookDto);
+                
             }
             catch (Exception ex)
             {

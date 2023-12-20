@@ -39,7 +39,7 @@ namespace FullStackAuth_WebAPI.Controllers
         //    return "value";
         //}
 
-        // POST api/<ReviewsController>
+        // POST api/reviews
         [HttpPost, Authorize]
         public IActionResult Post([FromBody] Review review)
         {
